@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+@apply transition-colors duration-200;
+}
+
+:root {
+  font-family: 'Orbitron',Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar-md ul a.active {
+  border: 2px solid #6b21a8;
+  padding: 0.5rem;
+  border-radius: 50px;
+}
+
+.embla {
+  width: 70%;
+}
+
+.embla img{
+  max-width: 50%;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+
