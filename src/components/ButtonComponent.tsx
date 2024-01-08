@@ -16,7 +16,8 @@ export default function ButtonComponent({text,color} :ButtonComponentProps) {
                         borderColor:"#747bff"
                         }}>
             <Button
-            className={`rounded text-white px-6 py-3 ${color}`}
+            type='submit'
+            className={`cursor-pointer rounded text-white px-6 py-3 ${color}`}
             size='medium'
             variant='contained'>
                 {text}

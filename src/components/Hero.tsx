@@ -29,7 +29,7 @@ export default function HeroCarousel() {
 
     return (
         <section className='my-11 text-zinc-900 flex flex-col justify-center items-center h-[600px] bg-slate-50'>
-            <h3 className='text-4xl font-bold mb-5'>Rediscover this stories </h3>
+            <h3 className='text-4xl font-bold mb-5 py-10'>Rediscover this stories this week </h3>
             <Swiper
             breakpoints={{
             340: {
@@ -54,9 +54,9 @@ export default function HeroCarousel() {
                     {random.length > 0 ?
                             random.map((manga) =>(
                             <SwiperSlide key={manga.id}>
-                                <div className='group flex justify-centershadow-xl rounded items-center w-[400px] h-[450] overflow-hidden  cursor-pointer'>
+                                <div className='group flex justify-center shadow-xl rounded items-center w-[400px] h-[450px] overflow-hidden  cursor-pointer'>
                                     <Link to={`/manga/${manga.id}`}>
-                                    <img  src={`${manga.picture}`} className="swiper-slide relative object-cover rounded w-full h-full group-hover:opacity-70"/>
+                                    <img  src={`${manga.picture}`} className="swiper-slide relative object-cover rounded w-[400px] h-[450px] group-hover:opacity-70"/>
                                     </Link>
 
                                 </div>
