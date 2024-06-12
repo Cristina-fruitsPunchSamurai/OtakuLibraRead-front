@@ -17,6 +17,21 @@ interface CardProps {
     link: string
 }
 
+// !!! -> Optionnal props "?"
+// interface CardProps {
+//     title?: string,
+//     authors?: {
+//         firstname: string;
+//         lastname: string;
+//     }[];
+//     tags? : {
+//         name: string;
+//     }[];
+//     status: string,
+//     image: string,
+//     link: string
+// }
+
 export default function Card({title, authors, status, image, tags, link}: CardProps) {
     return (
             <Grid item xs={12} md={3}>

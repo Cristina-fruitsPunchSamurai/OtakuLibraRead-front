@@ -1,9 +1,9 @@
 
 export const navLinks = [
     {
-        id: "mangas",
-        name: "Mangas",
-        hash: "mangas",
+        id: "new-manga",
+        name: "Add manga",
+        hash: "add-manga",
     },
     {
         id: "categories",

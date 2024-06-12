@@ -31,10 +31,8 @@ export default function MangaPage() {
     }, []);
 
     return (
-
             <main className='mx-14'>
                 <Card className="w-full md:flex ">
-
                     <CardMedia
                         sx={{ height: 540, width: 440 }}
                         image={mangaData.picture}

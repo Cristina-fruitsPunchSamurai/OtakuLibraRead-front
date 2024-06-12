@@ -1,7 +1,7 @@
 
 import { forwardRef } from 'react';
 import { TextField, FormControl } from "@mui/material";
-import { InputBaseComponentProps } from "./InputComponent.types";
+import { type InputBaseComponentProps } from "./InputComponent.types";
 
 export const InputComponent = forwardRef(({color, type, id, placeholder, name, label} :InputBaseComponentProps, ref) =>{
     return (

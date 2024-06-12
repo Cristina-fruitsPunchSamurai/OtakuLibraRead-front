@@ -5,7 +5,7 @@ import {navLinks} from './data.js';
 import { NavLink } from 'react-router-dom';
 import {useClickAway} from 'react-use';
 import {motion} from 'framer-motion';
-import {LinkType} from './NavBar.types.ts'
+import { type LinkType } from './NavBar.types.ts'
 
 export default function Navmobile() {
     const ref = useRef(null);

@@ -5,12 +5,12 @@ import axios from 'axios';
 import {BASE_URL} from '../utils/API.js';
 // Import Swiper React components
 import { Swiper, SwiperSlide} from 'swiper/react';
-import {Pagination, Navigation } from 'swiper/modules';
+import { Pagination, EffectCoverflow } from 'swiper/modules';
+
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import ButtonComponent from './ButtonComponent.js';
+
 
 
 export default function HeroCarousel() {
@@ -28,43 +28,53 @@ export default function HeroCarousel() {
 
 
     return (
-        <section className='my-11 text-zinc-900 flex flex-col justify-center items-center h-[600px] bg-slate-50'>
-            <h3 className='text-4xl font-bold mb-5 py-10'>Rediscover this stories this week </h3>
-            <Swiper
-            breakpoints={{
-            340: {
-                slidesPerView: 1,
-                spaceBetween: 15,
-            },
-            700: {
-                slidesPerView: 3,
-                spaceBetween: 15,
-            },
-            }}
-            //swiper modules
-            modules={[Pagination, Navigation]}
-            spaceBetween={40}
-            slidesPerView={3}
-            navigation={true}
-            pagination={{ clickable: true }}
-            //onSlideChange={() => console.log('slide change')}
-            //onSwiper={(swiper) => console.log(swiper)}
-            className='max-w-[90%] h-[65%]'>
-                {/* <!-- Slides --> */}
-                    {random.length > 0 ?
-                            random.map((manga) =>(
-                            <SwiperSlide key={manga.id}>
-                                <div className='group flex justify-center shadow-xl rounded items-center w-[400px] h-[450px] overflow-hidden  cursor-pointer'>
-                                    <Link to={`/manga/${manga.id}`}>
-                                    <img  src={`${manga.picture}`} className="swiper-slide relative object-cover rounded w-[400px] h-[450px] group-hover:opacity-70"/>
-                                    </Link>
-
-                                </div>
-                            </SwiperSlide>
-                        )) : <div>Loading ...</div>
-                    }
-            </Swiper>
-
+        <section className='slider'>
+            <div className='mt-20 mx-auto text-zinc-900 flex flex-col py-7 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10'>
+                <div className='w-full'>
+                    {random && <Swiper
+                    breakpoints={{
+                    340: {
+                        slidesPerView: 1,
+                        spaceBetween: 15,
+                    },
+                    700: {
+                        slidesPerView: 3,
+                        spaceBetween: 15,
+                    },
+                    }}
+                    loop={true}
+                    initialSlide={1}
+                    effect='coverflow'
+                    coverflowEffect={{
+                            rotate: 30,
+                            stretch: 80,
+                            depth: 200,
+                            modifier: 1,
+                            slideShadows: false,
+                        }}
+                    centeredSlides={true}
+                    //swiper modules
+                    modules={[Pagination, EffectCoverflow]}
+                    spaceBetween={40}
+                    slidesPerView={3}
+                    pagination={{ clickable: true }}
+                    className='swiper-container'
+                    >
+                        {/* <!-- Slides --> */}
+                            {random.length > 0 ?
+                                    random.map((manga) =>(
+                                    <SwiperSlide key={manga.id} className=''>
+                                        <div className='bg-gray-900 w-[300px] h-[350px] overflow-hidden'>
+                                            <Link to={`/manga/${manga.id}`}>
+                                                <img  src={`${manga.picture}`} className="swiper-slide rounded w-[300px] h-[350px] transition-transform duration-300 transform hover:scale-105"/>
+                                            </Link>
+                                            </div>
+                                    </SwiperSlide>
+                                )) : <div>Loading ...</div>
+                            }
+                    </Swiper>}
+                </div>
+            </div>
         </section>
     )
 }

@@ -12,7 +12,8 @@ export default {
         'cyber-purple': '#7e22ce',
         'cyber-yellow': '#fde047',
         'cyber-black': '#020617',
-
+        'cyber-pink': '#FF003C',
+        'cyber-blue' : '#04DAF6'
       }
     },
   },

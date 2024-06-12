@@ -2,44 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-@apply transition-colors duration-200;
+* {
+    @apply transition-colors duration-200;
 }
 
 :root {
-  font-family: 'Orbitron',Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color: rgba(255, 255, 255, 0.87);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background-color: #020617;
+    font-family: 'Orbitron', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.87);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .navbar-md ul a.active {
-  border: 2px solid #6b21a8;
-  padding: 0.5rem;
-  border-radius: 50px;
+    border: 2px solid #6b21a8;
+    padding: 0.5rem;
+    border-radius: 50px;
+}
+
+.slider {
+    background-image: url('../public/japan.webp');
+    border-radius: 0.375rem;
 }
 
 .embla {
-  width: 70%;
+    width: 70%;
 }
 
-.embla img{
-  max-width: 50%;
+.embla img {
+    max-width: 50%;
 }
 
 .embla__container {
-  display: flex;
+    display: flex;
 }
 
 .embla__slide {
-  flex: 0 0 100%;
-  min-width: 0;
+    flex: 0 0 100%;
+    min-width: 0;
 }
 
+.swiper-pagination-bullet {
+    height: 1rem !important;
+    width: 1rem !important;
+    background-color: #0f0a0b !important;
+    opacity: 0.8 !important;
+}
 
+.swiper-pagination-bullet-active {
+    background-color: #6b04fd !important;
+}
+
+.swiper-container{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 700px;
+    /* background-color: white;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+    border-radius: 0.5rem; */
+}
+
+.swiper-slide {
+    width: 300px;
+}

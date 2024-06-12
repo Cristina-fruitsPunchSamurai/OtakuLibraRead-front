@@ -1,13 +1,17 @@
 
-import { useState, useContext} from "react";
+import { useState, useContext, useEffect} from "react";
 import { LoginContext } from "../Contexts/LoginContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Typography, Box } from "@mui/material";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {FieldErrors, SubmitHandler, set, useForm} from "react-hook-form";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
 import {BASE_URL} from "../utils/API";
+import toast, { Toaster } from 'react-hot-toast';
+import { DevTool } from "@hookform/devtools";
+import { purple } from "@mui/material/colors";
+
 
 interface FormInput {
     email: string,
@@ -16,12 +20,17 @@ interface FormInput {
 }
 
 export default function Login() {
+    console.log('login rendered')
 //*----------------- Integration states -----------------*//
     const [showLoginPassword, setShowLoginPassword] = useState(false);
     const [loginPasswordType, setLoginPasswordType] = useState('password');
 
     const {setIsLogged} = useContext(LoginContext);
     const navigate = useNavigate();
+
+    const notify = (errorMessage) => {
+        toast.error(errorMessage);
+        };
 
 //*----------------- Function that toggles visibility of password -----------------*//
     const showPassword = () => {
@@ -31,28 +40,53 @@ export default function Login() {
 
 
 //*-----------------------------  Form ----------------------------- *//
-    const {register, handleSubmit,reset, formState: { errors }} = useForm<FormInput>();
-
-
-//*-----------------------------  Form submission ----------------------------- *//
+    const {
+        register,
+        handleSubmit,
+        reset,
+        control,
+        formState: {
+            errors,
+            isValid,
+            isSubmitting,
+            isSubmitSuccessful,
+        }} = useForm<FormInput>();
+    //*-----------------------------  Form submission ----------------------------- *//
 //je recupère les valeur des champs et je les passe dans le body à ma requête *//
     const onSubmit: SubmitHandler<FormInput> = async (data) => {
         await loginUser(data);
     }
 
 
+    useEffect(() => {
+        isSubmitSuccessful ? notify('You are logged in!') : null
+        reset();
+    }, [isSubmitSuccessful])
+
+//*-----------------------------  Form errors ----------------------------- *//
+// la function handleSubmit prend errors en paramètre, et il a un type FieldErrors (de useForm) de mon type forminput
+    const onError = (errors : FieldErrors<FormInput>)=> {
+        console.log('errors', errors);
+        notify(errors.email?.message);
+        notify(errors.password?.message);
+        }
+
+
 //*-----------------------------  API request ----------------------------- *//
 const loginUser = async(credentials :FormInput)=> {
     try{
         const result = await axios.post(`${BASE_URL}/login`, credentials);
-        console.log(result.data)
+        //localStorage.setItem('token', result.data.token);
         setIsLogged(true);
-        reset();
-        navigate('/');
+        setTimeout(() => {
+            navigate('/');
+        }, 2000);
     }catch(error){
+        notify('Sorry no user found.');
         console.log(error);
     }
-}
+    }
+
 
 
     return (
@@ -66,7 +100,7 @@ const loginUser = async(credentials :FormInput)=> {
                         Login
                     </Typography>
                     <form
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit(onSubmit, onError)}
                     className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                         <div className="mb-4">
                             <label
@@ -84,10 +118,19 @@ const loginUser = async(credentials :FormInput)=> {
                                 pattern: {
                                     value:  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                     message :'Please enter a valid email'
-                                    }
+                                    },
+                                // validate:{
+                                //     notAdmin:(fieldValue) => {
+                                //         return fieldValue !== 'admin@exemple.com'
+                                //         || 'Enter a different email!'
+                                //     },
+                                //     notBlackListed:(fieldValue)=> {
+                                //     return !fieldValue.endsWith('.biz') || 'This email is blacklisted'
+                                // }
+                                // },
                             })}
                             />
-                            {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
+                            <span className="text-red-500 text-xs">{errors.email?.message}</span>
                         </div>
                         <div className="mb-6">
                             <div className="relative">
@@ -115,14 +158,18 @@ const loginUser = async(credentials :FormInput)=> {
                                     { showLoginPassword ?  <Visibility /> : <VisibilityOff />}
                                 </span>
                             </div>
-                            {errors.password && <p role='alert' className="text-red-500 text-xs">{errors.password.message}</p>}
+                            <p role='alert' className="text-red-500 text-xs">{errors.password?.message}</p>
                         </div>
                         <Box className="my-5 flex justify-center items-center">
-                            <button className="cursor-pointer rounded text-white px-6 py-3 bg-cyber-purple" type="submit">
+                            <button
+                            disabled={!isValid || isSubmitting}
+                            className={`cursor-pointer rounded text-white px-6 py-3 ${!isValid ? "bg-purple-400" : "bg-cyber-purple"}`}
+                            type="submit">
                                 Login
                             </button>
                         </Box>
                     </form>
+                    <DevTool control={control}/>
                     <Link to='/signup'>
                         <Typography
                         align="left"
@@ -130,6 +177,7 @@ const loginUser = async(credentials :FormInput)=> {
                             You don't have an account yet?
                         </Typography>
                     </Link>
+                    <Toaster />
                 </Container>
         </main>
     )

@@ -20,6 +20,7 @@ interface FormInput {
 }
 
 export default function Signup() {
+
 //*----------------- Integration states -----------------*//
     const [showPassword, setShowPassword] = useState(false);
     const [inputPasswordType, setInputPasswordType] = useState("password");
@@ -64,7 +65,6 @@ export default function Signup() {
             const result = await axios.post(`${BASE_URL}/register`, userData);
             reset();
             navigate('/login');
-            console.log (result.data)
         }catch(error) {
             console.log(error)
         }

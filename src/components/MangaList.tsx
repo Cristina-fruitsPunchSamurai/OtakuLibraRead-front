@@ -5,9 +5,10 @@ import { useState, useEffect} from "react";
 //import { LoginContext } from "../Contexts/LoginContext";
 import axios from "axios";
 import {BASE_URL} from "../utils/API.js";
-import {Link} from "react-router-dom";
+//import {Link} from "react-router-dom";
 
 export default function MangaList() {
+    console.log('mangalist rendered')
     const [mangaList, setMangaList] = useState([]);
    // const {isLogged}= useContext(LoginContext);
     //console.log('isLogged on mangalist',isLogged)
